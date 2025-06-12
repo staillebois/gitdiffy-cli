@@ -2,7 +2,3 @@ license: "your-license-key"
 prefix: gitdiffy
 pushRemote: origin
 maxWorkDuration: 20s
-excludePaths:
-  - "vendor"
-  - "node_modules"
-  - ".git"
