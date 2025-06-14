@@ -1,4 +1,4 @@
 license: "your-license-key"
-prefix: gitdiffy
+branchPrefix: gitdiffy
 pushRemote: origin
 maxWorkDuration: 60s

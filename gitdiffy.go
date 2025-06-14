@@ -50,7 +50,7 @@ func main() {
 	}
 
 	rootCmd.PersistentFlags().StringVarP(&licenseKey, "license", "l", "", "License key")
-	rootCmd.PersistentFlags().StringVarP(&branchPrefix, "prefix", "p", "gitdiffy", "Temporary branch prefix")
+	rootCmd.PersistentFlags().StringVarP(&branchPrefix, "branchPrefix", "p", "gitdiffy", "Temporary branch prefix")
 	rootCmd.PersistentFlags().StringVar(&pushRemote, "pushRemote", "origin", "Git remote to push to")
 	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "Config file (default: ./.gitdiffy.yaml)")
 	rootCmd.PersistentFlags().DurationVar(&maxWorkDuration, "maxWorkDuration", 10*time.Minute, "Max time to work before triggering commit")
@@ -76,7 +76,7 @@ func initConfig() {
 	viper.ReadInConfig()
 
 	licenseKey = viper.GetString("license")
-	branchPrefix = viper.GetString("prefix")
+	branchPrefix = viper.GetString("branchPrefix")
 	pushRemote = viper.GetString("pushRemote")
 	maxWorkDuration = viper.GetDuration("maxWorkDuration")
 }
