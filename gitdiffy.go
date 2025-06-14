@@ -177,9 +177,21 @@ func performAutoCommit() {
 		return
 	}
 
-	timestamp := time.Now().Format("20060102-150405")
-	branchName := fmt.Sprintf("%s-%s", branchPrefix, timestamp)
-	exec.Command("git", "checkout", "-b", branchName).Run()
+	currentBranch := "main"
+	cmd := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD")
+	out, err := cmd.Output()
+	if err != nil {
+		fmt.Println("❌ failed to get current branch", err)
+	} else {
+		currentBranch = strings.TrimSpace(string(out))
+	}
+
+	branchName := currentBranch
+	if !strings.HasPrefix(currentBranch, branchPrefix) {
+		timestamp := time.Now().Format("20060102-150405")
+		branchName = fmt.Sprintf("%s-%s", branchPrefix, timestamp)
+		exec.Command("git", "checkout", "-b", branchName).Run()
+	}
 	exec.Command("git", "restore", "--staged", ".").Run()
 
 	for _, commit := range commits {
@@ -191,7 +203,7 @@ func performAutoCommit() {
 
 	exec.Command("git", "push", "-u", pushRemote, branchName).Run()
 
-	fmt.Println("✅ Commit and push complete:", branchName)
+	fmt.Println("✅ Commit and push complete to branch:", branchName)
 }
 
 func generateCommitMessages(diff string) ([]Commit, error) {
