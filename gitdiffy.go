@@ -203,7 +203,7 @@ func performAutoCommit() {
 
 	exec.Command("git", "push", "-u", pushRemote, branchName).Run()
 
-	fmt.Println("✅ Commit and push complete:", branchName)
+	fmt.Println("✅ Commit and push complete to branch:", branchName)
 }
 
 func generateCommitMessages(diff string) ([]Commit, error) {
