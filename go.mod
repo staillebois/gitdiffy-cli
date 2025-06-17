@@ -1,4 +1,4 @@
-module staillebois.com/gitdiffy
+module gitdiffy
 
 go 1.23.5
 
